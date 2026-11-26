@@ -9,8 +9,8 @@
         </p>
     </header>
 
-    <button class="btn btn-error" onclick="my_modal_1.showModal()">{{ __('Delete Account') }}</button>
-    <dialog id="my_modal_1" class="modal" @if($errors->userDeletion->get('password')) open @endif>
+    <button class="btn btn-error" type="button" onclick="document.getElementById('delete-account-modal').showModal()">{{ __('Delete Account') }}</button>
+    <dialog id="delete-account-modal" class="modal" @if($errors->userDeletion->get('password')) open @endif>
         <div class="modal-box">
             <form id="delete-form" method="post" action="{{ route('profile.destroy') }}" class="p-6">
                 @csrf
@@ -27,7 +27,7 @@
                 <fieldset class="fieldset mt-6">
                     <legend class="fieldset-legend">@lang('Password')</legend>
                     <input name="password" type="password" required
-                        class="input w-full @error('password') input-error @enderror" autocomplete="current-password" />
+                        class="input w-full @if($errors->userDeletion->has('password')) input-error @endif" autocomplete="current-password" />
                     @if($errors->userDeletion->get('password'))
                         @foreach($errors->userDeletion->get('password') as $error)
                             <p class="label text-error">{{ $error }}</p>
@@ -39,7 +39,7 @@
             <div class="modal-action">
                 <div class="mt-6 flex justify-end">
                     <form method="dialog">
-                        <button class="btn">
+                        <button type="submit" class="btn">
                             {{ __('Cancel') }}
                         </button>
                     </form>
