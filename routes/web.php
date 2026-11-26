@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\CommentController;
 use App\Http\Controllers\PostController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\PublicController;
@@ -29,6 +30,10 @@ Route::get('/dashboard', function () {
 
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::resource('/admin/posts', PostController::class);
+
+    Route::post('/post/{post}/comments', [CommentController::class, 'store'])
+        ->middleware('throttle:10,1')
+        ->name('post.comments.store');
 
     Route::get('/post/{post}/like', [PublicController::class, 'like'])->name('post.like');
     Route::get('/user/{user}/follow', [PublicController::class, 'follow'])->name('follow');
