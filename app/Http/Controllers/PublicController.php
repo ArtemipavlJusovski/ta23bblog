@@ -20,6 +20,9 @@ class PublicController extends Controller
 
     public function post(Post $post)
     {
+        $post->load(['user', 'comments.user', 'images', 'tags', 'category'])
+            ->loadCount(['comments', 'likes']);
+
         return view('post', compact('post'));
     }
 
