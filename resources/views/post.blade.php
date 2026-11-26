@@ -16,6 +16,7 @@
             @endif
 
             @auth
+                @if (auth()->user()->hasVerifiedEmail())
                 <form method="POST" action="{{ route('post.comments.store', $post) }}" class="card bg-base-200 shadow-sm">
                     @csrf
                     <div class="card-body">
@@ -31,6 +32,12 @@
                         </div>
                     </div>
                 </form>
+                @else
+                    <div class="alert alert-warning">
+                        <span>{{ __('Please verify your email address to comment.') }}</span>
+                        <a href="{{ route('verification.notice') }}" class="btn btn-sm btn-primary">{{ __('Verify email') }}</a>
+                    </div>
+                @endif
             @else
                 <div class="alert">
                     <span>{{ __('Please log in to leave a comment.') }}</span>
