@@ -9,6 +9,7 @@
             </div>
             <ul tabindex="-1" class="menu menu-sm dropdown-content bg-base-100 rounded-box z-1 mt-3 w-52 p-2 shadow">
                 @auth
+                    <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
                     <li><a href="{{ route('secure') }}">Secure</a></li>
                     <li>
                         <a>Admin</a>
@@ -49,6 +50,7 @@
                     <details>
                         <summary>{{ Auth::user()->name }}</summary>
                         <ul class="p-2 z-1">
+                            <li><a href="{{ route('dashboard') }}">Dashboard</a></li>
                             <li><a href="{{ route('profile.edit') }}">Profile</a></li>
                             <li>
                                 <form method="POST" action="{{ route('logout') }}">
